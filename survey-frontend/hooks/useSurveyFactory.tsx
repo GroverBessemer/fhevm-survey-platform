@@ -39,7 +39,7 @@ export function useSurveyFactory() {
       const chainIdStr = chainId.toString() as "31337" | "11155111";
       const contractAddress = SurveyFactoryAddresses[chainIdStr]?.address;
 
-      if (!contractAddress || contractAddress === "0x0000000000000000000000000000000000000000") {
+      if (!contractAddress) {
         console.warn(`[SurveyFactory] No contract deployed on chain ${chainId}`);
         setContract(null);
         return;

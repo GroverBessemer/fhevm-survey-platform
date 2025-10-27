@@ -35,7 +35,7 @@ export function useSurvey(surveyAddress: string | null) {
 
   // Initialize contract
   useEffect(() => {
-    if (!signer || !surveyAddress || surveyAddress === "0x0000000000000000000000000000000000000000") {
+    if (!signer || !surveyAddress) {
       setContract(null);
       return;
     }

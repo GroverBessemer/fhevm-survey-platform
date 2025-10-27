@@ -240,6 +240,7 @@ export const createFhevmInstance = async (parameters: {
     network: providerOrUrl,
     publicKey: pub.publicKey,
     publicParams: pub.publicParams,
+    crsId: "testnet", // Add CRS ID for Sepolia testnet
   };
 
   notify("creating");
