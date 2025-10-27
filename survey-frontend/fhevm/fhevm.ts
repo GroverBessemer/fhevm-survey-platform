@@ -250,20 +250,30 @@ export const createFhevmInstance = async (parameters: {
 
   console.log("[fhevm] Final config keys:", Object.keys(config));
   console.log("[fhevm] Final config.crsId:", config.crsId);
+  console.log("[fhevm] publicParams length:", config.publicParams?.length);
+  console.log("[fhevm] publicKey:", config.publicKey);
 
   notify("creating");
 
-  const instance = await relayerSDK.createInstance(config);
+  try {
+    const instance = await relayerSDK.createInstance(config);
+    console.log("[fhevm] Instance created successfully");
 
-  // Save the key even if aborted
-  await publicKeyStorageSet(
-    aclAddress,
-    instance.getPublicKey(),
-    instance.getPublicParams(2048)
-  );
+    // Save the key even if aborted
+    await publicKeyStorageSet(
+      aclAddress,
+      instance.getPublicKey(),
+      instance.getPublicParams(2048)
+    );
 
-  throwIfAborted();
+    throwIfAborted();
 
-  return instance;
+    return instance;
+  } catch (error: any) {
+    console.error("[fhevm] createInstance error:", error);
+    console.error("[fhevm] Error message:", error.message);
+    console.error("[fhevm] Full error:", JSON.stringify(error, null, 2));
+    throw error;
+  }
 };
 
