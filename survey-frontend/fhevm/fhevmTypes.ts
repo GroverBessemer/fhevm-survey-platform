@@ -30,6 +30,7 @@ export interface FhevmInstanceConfig {
   publicKey: string;
   publicParams: Uint8Array;
   aclContractAddress: string;
+  crsId?: string;
   [key: string]: any;
 }
 

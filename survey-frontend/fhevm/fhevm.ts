@@ -235,13 +235,18 @@ export const createFhevmInstance = async (parameters: {
   const pub = await publicKeyStorageGet(aclAddress);
   throwIfAborted();
 
+  // Log SepoliaConfig to debug
+  console.log("[fhevm] SepoliaConfig:", relayerSDK.SepoliaConfig);
+
   const config: FhevmInstanceConfig = {
     ...relayerSDK.SepoliaConfig,
     network: providerOrUrl,
     publicKey: pub.publicKey,
     publicParams: pub.publicParams,
-    crsId: "testnet", // Add CRS ID for Sepolia testnet
+    // CRS ID is included in SepoliaConfig from the SDK
   };
+
+  console.log("[fhevm] Final config:", config);
 
   notify("creating");
 
