@@ -62,3 +62,4 @@ fhevmTemp/
 hardhat.config.ts
 !hardhat.config.template.ts
 
+out/
