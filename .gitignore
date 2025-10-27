@@ -10,7 +10,6 @@ coverage/
 build/
 dist/
 .next/
-out/
 
 # Environment variables
 .env
@@ -62,4 +61,3 @@ fhevmTemp/
 hardhat.config.ts
 !hardhat.config.template.ts
 
-out/
