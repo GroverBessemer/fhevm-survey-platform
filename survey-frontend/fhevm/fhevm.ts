@@ -227,44 +227,22 @@ export const createFhevmInstance = async (parameters: {
 
   const relayerSDK = (window as unknown as FhevmWindowType).relayerSDK;
 
-  const aclAddress = relayerSDK.SepoliaConfig.aclContractAddress;
-  if (!checkIsAddress(aclAddress)) {
-    throw new Error(`Invalid address: ${aclAddress}`);
-  }
-
-  const pub = await publicKeyStorageGet(aclAddress);
-  throwIfAborted();
-
-  // Log SepoliaConfig to debug
-  console.log("[fhevm] SepoliaConfig keys:", Object.keys(relayerSDK.SepoliaConfig));
-  console.log("[fhevm] SepoliaConfig.crsId:", relayerSDK.SepoliaConfig.crsId);
   console.log("[fhevm] SepoliaConfig:", JSON.stringify(relayerSDK.SepoliaConfig, null, 2));
 
+  // Use SepoliaConfig directly - it already contains all necessary parameters
   const config: FhevmInstanceConfig = {
     ...relayerSDK.SepoliaConfig,
     network: providerOrUrl,
-    publicKey: pub.publicKey,
-    publicParams: pub.publicParams,
-    crsId: "1", // Use default CRS ID for testnet
+    // Don't manually set publicKey/publicParams - let the SDK handle it
   };
 
-  console.log("[fhevm] Final config keys:", Object.keys(config));
-  console.log("[fhevm] Final config.crsId:", config.crsId);
-  console.log("[fhevm] publicParams length:", config.publicParams?.length);
-  console.log("[fhevm] publicKey:", config.publicKey);
+  console.log("[fhevm] Final config:", config);
 
   notify("creating");
 
   try {
     const instance = await relayerSDK.createInstance(config);
-    console.log("[fhevm] Instance created successfully");
-
-    // Save the key even if aborted
-    await publicKeyStorageSet(
-      aclAddress,
-      instance.getPublicKey(),
-      instance.getPublicParams(2048)
-    );
+    console.log("[fhevm] Instance created successfully!");
 
     throwIfAborted();
 
@@ -272,7 +250,7 @@ export const createFhevmInstance = async (parameters: {
   } catch (error: any) {
     console.error("[fhevm] createInstance error:", error);
     console.error("[fhevm] Error message:", error.message);
-    console.error("[fhevm] Full error:", JSON.stringify(error, null, 2));
+    console.error("[fhevm] Full error:", error);
     throw error;
   }
 };
