@@ -245,7 +245,7 @@ export const createFhevmInstance = async (parameters: {
     network: providerOrUrl,
     publicKey: pub.publicKey,
     publicParams: pub.publicParams,
-    crsId: "testnet", // Add CRS ID for Sepolia testnet
+    crsId: "1", // Use default CRS ID for testnet
   };
 
   console.log("[fhevm] Final config keys:", Object.keys(config));
