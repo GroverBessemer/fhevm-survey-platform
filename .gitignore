@@ -43,9 +43,12 @@ yarn-error.log*
 cache/
 artifacts/
 !artifacts/contracts/**/*.json
-deployments/localhost
-!deployments/localhost/*.json
-!deployments/localhost/solcInputs/
+deployments/
+!deployments/*.json
+!deployments/*/solcInputs/
+
+# Survey frontend ABI files (allow generated ABIs)
+!survey-frontend/abi/*.ts
 
 # FHEVM
 fhevmTemp/
