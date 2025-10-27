@@ -236,7 +236,9 @@ export const createFhevmInstance = async (parameters: {
   throwIfAborted();
 
   // Log SepoliaConfig to debug
-  console.log("[fhevm] SepoliaConfig:", relayerSDK.SepoliaConfig);
+  console.log("[fhevm] SepoliaConfig keys:", Object.keys(relayerSDK.SepoliaConfig));
+  console.log("[fhevm] SepoliaConfig.crsId:", relayerSDK.SepoliaConfig.crsId);
+  console.log("[fhevm] SepoliaConfig:", JSON.stringify(relayerSDK.SepoliaConfig, null, 2));
 
   const config: FhevmInstanceConfig = {
     ...relayerSDK.SepoliaConfig,
@@ -246,7 +248,8 @@ export const createFhevmInstance = async (parameters: {
     // CRS ID is included in SepoliaConfig from the SDK
   };
 
-  console.log("[fhevm] Final config:", config);
+  console.log("[fhevm] Final config keys:", Object.keys(config));
+  console.log("[fhevm] Final config.crsId:", config.crsId);
 
   notify("creating");
 
